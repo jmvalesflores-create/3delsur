@@ -1,73 +1,63 @@
-# Welcome to your Lovable project
+# 3delSUR — sitio institucional
 
-## Project info
+Landing pública para **3delSUR**: servicios de montaje industrial, galería de trabajos y formulario de contacto.
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+**Repositorio:** [github.com/jmvalesflores-create/3delsur](https://github.com/jmvalesflores-create/3delsur)
 
-## How can I edit this code?
+## Requisitos
 
-There are several ways of editing your application.
+- [Node.js](https://nodejs.org/) (LTS recomendado) y **npm**
 
-**Use Lovable**
-
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
+## Puesta en marcha
 
 ```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+git clone https://github.com/jmvalesflores-create/3delsur.git
+cd 3delsur
+npm install
+```
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+Creá un archivo **`.env`** en la raíz (no se sube al repo) con las variables de Supabase que usa el cliente:
 
-# Step 3: Install the necessary dependencies.
-npm i
+| Variable | Descripción |
+|----------|-------------|
+| `VITE_SUPABASE_URL` | URL del proyecto Supabase |
+| `VITE_SUPABASE_PUBLISHABLE_KEY` | Clave pública (anon) del proyecto |
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+Las obtenés en el panel de Supabase: **Project Settings → API**.
+
+```sh
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+El servidor de desarrollo suele quedar en **http://localhost:8080** (ver `vite.config.ts`).
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## Scripts
 
-**Use GitHub Codespaces**
+| Comando | Uso |
+|---------|-----|
+| `npm run dev` | Desarrollo con recarga en caliente |
+| `npm run build` | Build de producción en `dist/` |
+| `npm run preview` | Vista previa del build |
+| `npm run lint` | ESLint |
+| `npm test` | Vitest |
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## Galería de imágenes
 
-## What technologies are used for this project?
+Las fotos de la sección **Imágenes** salen de **Supabase Storage**, bucket `gallery`. Cómo subirlas sin tocar código: **[README-GALERIA.md](./README-GALERIA.md)**.
 
-This project is built with:
+## Stack
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+- [Vite](https://vitejs.dev/) · [React](https://react.dev/) · [TypeScript](https://www.typescriptlang.org/)
+- [Tailwind CSS](https://tailwindcss.com/) · [shadcn/ui](https://ui.shadcn.com/)
+- [Supabase](https://supabase.com/) (Storage para la galería)
 
-## How can I deploy this project?
+## Despliegue
 
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
+Generá el sitio estático con `npm run build` y publicá la carpeta **`dist/`** en el hosting que prefieras (por ejemplo Vercel, Netlify, Cloudflare Pages, S3 + CDN, etc.). Configurá las mismas variables `VITE_*` en el panel del proveedor como variables de entorno de build.
 
-## Can I connect a custom domain to my Lovable project?
+## Estructura útil
 
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+- `src/pages/` — páginas (landing principal en `Index.tsx`)
+- `src/components/` — secciones y UI
+- `src/integrations/supabase/` — cliente y tipos de Supabase
+- `supabase/migrations/` — migraciones SQL del proyecto
